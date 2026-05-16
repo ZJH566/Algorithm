@@ -1,0 +1,28 @@
+import sys
+from collections import deque
+
+class dq:
+    def __init__(self) -> None:
+        self.q = deque()
+    
+    def solve(self,arr):
+        if arr[0] == 1:
+            self.q.append(arr[1])
+        elif arr[0] == 2:
+            if self.q:
+                self.q.popleft()
+            else:
+                print('ERR_CANNOT_POP')
+        elif arr[0] == 3:
+            if self.q:
+                print(self.q[0])
+            else:
+                print('ERR_CANNOT_QUERY')
+        elif arr[0] == 4:
+            print(len(self.q))
+if __name__ == "__main__":
+    q = dq()
+    n = int(input())
+    for _ in range(n):
+        arr = list(map(int, input().split()))
+        q.solve(arr)
