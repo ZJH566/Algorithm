@@ -1,0 +1,10 @@
+n, q = map(int, input().split())
+num = list(map(int, input().split()))
+prefix = [0]*(n+1)
+for i in range(n):
+    prefix[i+1] = prefix[i] + num[i]
+def range_sum(left, right):
+    return prefix[right+1]-prefix[left]
+for _ in range(q):
+    left, right = map(int, input().split())
+    print(range_sum(left-1, right-1))#注意下标

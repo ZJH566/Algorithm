@@ -1,0 +1,40 @@
+#矩阵
+from collections import deque
+
+def bfs(maze, start, end):
+    q = deque()
+    q.append((start[0],start[1], 0))
+    visited = set()
+    visited.add((start))
+    parent = {start:None}
+
+    while q:
+        x, y ,d = q.popleft()
+
+        if (x, y) == end:
+            path = []
+            current = end
+            while current:
+                path.append(current)
+                current = parent[current]
+            path = path[::-1]
+            path_1based = [(x + 1, y + 1) for x, y in path]
+            return d, path_1based
+
+        directions = [(0,1),(1,0),(0,-1),(-1,0)]
+        for dx, dy in directions:
+            nx, ny = x +dx, y + dy
+            if 0 <= nx < len(maze) and 0 <= ny < len(maze[0]) and maze[nx][ny]=='.' and (nx, ny) not in visited:
+                q.append((nx,ny,d+1))
+                visited.add((nx,ny))
+                parent[(nx,ny)] = (x, y)
+    return -1
+
+if __name__ == "__main__" :
+    n, m = map(int, input().split())
+    xs, ys, xt, yt = map(int, input().split())
+    # 题目坐标是 1-based → 代码里转成 0-based
+    start = (xs - 1, ys - 1)
+    end = (xt - 1, yt - 1)
+    maze = [list(input().strip()) for _ in range(n)]
+    print(bfs(maze, start, end))

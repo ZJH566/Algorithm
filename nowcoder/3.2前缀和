@@ -1,0 +1,16 @@
+def subarraySum(nums, k):
+    count = {0: 1}  # 关键！前缀和为 0 的情况，一开始就出现了 1 次 作用：如果当前前缀和 = k，直接就能匹配到 0，答案 +1
+    prefix_sum = 0
+    result = 0
+    
+    for num in nums:
+        prefix_sum += num
+        
+        # 核心公式
+        if prefix_sum - k in count:
+            result += count[prefix_sum - k]
+        
+        # 记录前缀和出现次数  安全地从字典里取值，不存在就返回 0，不会报错！
+        count[prefix_sum] = count.get(prefix_sum, 0) + 1
+    
+    return result

@@ -1,0 +1,52 @@
+import heapq
+
+class Student:
+    def __init__(self, chinese, math, english):
+        self.chinese = chinese
+        self.math = math
+        self.english = english
+        self.sum = chinese + math + english
+    
+    def __lt__(self, other):
+        # TODO: 实现比较逻辑，按照总分、语文、数学、英语的优先级排序
+        if self.sum != other.sum:
+            return self.sum > other.sum
+        elif self.chinese != other.chinese:
+            return self.chinese > other.chinese
+        elif self.math != other.math:
+            return self.math > other.math
+        elif self.english != other.english:
+            return self.english > other.english
+
+# 使用Python的heapq模块实现优先队列
+s = []
+
+def insertValue(chinese, math, english):
+    # TODO: 实现插入操作
+    heapq.heappush(s, Student(chinese, math, english))
+
+def deleteValue():
+    # TODO: 实现删除操作
+    if s:
+        heapq.heappop(s)
+
+def getTop():
+    # TODO: 返回成绩最好的学生
+    if s:
+        return s[0]
+
+if __name__ == "__main__":
+    q = int(input())
+    for _ in range(q):
+        line = input().split()
+        op = int(line[0])
+        if op == 1:
+            chinese = int(line[1])
+            math = int(line[2])
+            english = int(line[3])
+            insertValue(chinese, math, english)
+        elif op == 2:
+            top = getTop()
+            print(f"{top.chinese} {top.math} {top.english}")
+        elif op == 3:
+            deleteValue()

@@ -1,0 +1,38 @@
+#邻接表
+from collections import deque  # 必须导入！队列专用
+
+def find_shortest_path(graph, start, end):
+    # 1. 队列：存【接下来要遍历的节点】
+    queue = deque([start])
+    
+    # 2. 集合：存【已经走过的节点】，防止回头
+    visited = {start}
+    
+    # 3. 字典：记录【每个节点是从谁那里来的】
+    # 作用：最后倒着推出完整路径
+    parent = {start: None}
+    
+    # ---------------- BFS 核心循环 ----------------
+    while queue:  # 只要队列不为空，就继续走
+        node = queue.popleft()  # 取出队首（先进先出）
+        
+        # 出口：如果找到了终点！
+        if node == end:
+            path = []
+            current = end  # 从终点开始倒着找
+            
+            # 倒着回溯路径：终点 → ... → 起点
+            while current is not None:
+                path.append(current)
+                current = parent[current]  # 找上一个点
+            
+            return path[::-1]  # 反转，得到 起点→终点
+        
+        # 遍历当前节点的所有邻居
+        for neighbor in graph[node]:
+            if neighbor not in visited:  # 没走过
+                visited.add(neighbor)     # 标记已访问
+                parent[neighbor] = node   # 记录：我是从 node 来的
+                queue.append(neighbor)   # 加入队列，后面处理
+    
+    return []  # 没找到路

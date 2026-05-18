@@ -1,0 +1,75 @@
+import bisect
+#from sortedcontainers import SortedList    有序可开快速查找
+
+m = set()#无序，只判断存在与否
+a = []#用于保持所有元素有序的列表，支持前驱/后继查找
+
+# 将所有输出先收集到列表，最后一次性打印，减少 I/O 开销
+out = []
+
+def insertValue(x):
+    # TODO: 实现插入逻辑
+    if x not in m:
+        m.add(x)
+        bisect.insort(a, x)
+
+def eraseValue(x):
+    # TODO: 实现删除逻辑
+    if x in m:
+        m.remove(x)
+        # 在 A 中定位 x 的位置并弹出(a.remove直接遍历，太慢，bisect二分)
+        idx = bisect.bisect_left(a, x)
+        a.pop(idx)
+
+def xInSet(x):
+    # TODO: 实现存在性检查
+    out.append('YES' if x in m else 'NO') 
+
+def sizeOfSet():
+    # TODO: 返回集合大小
+    out.append(len(m))
+
+def getPre(x):
+    # TODO: 实现找前驱
+    idx = bisect.bisect_left(a,x)
+    if idx == 0:
+        out.append(-1)
+    else:
+        out.append(a[idx-1])
+
+def getBack(x):
+    # TODO: 实现找后继
+    idx = bisect.bisect_right(a,x)
+    if idx == len(a):
+        out.append(-1)
+    else:
+        out.append(a[idx])
+
+def main():
+    q = int(input())
+    for _ in range(q):
+        line = map(int,input().split())
+        cnt,op,x=0,0,0
+        for i in line:
+            if(cnt==0):
+                op=i
+            else:
+                x=i
+            cnt+=1
+        
+        if op == 1:
+            insertValue(x)
+        elif op == 2:
+            eraseValue(x)
+        elif op == 3:
+            xInSet(x)
+        elif op == 4:
+            sizeOfSet()
+        elif op == 5:
+            getPre(x)
+        elif op == 6:
+            getBack(x)
+    print('\n'.join(map(str,out)))
+
+if __name__ == "__main__":
+    main()

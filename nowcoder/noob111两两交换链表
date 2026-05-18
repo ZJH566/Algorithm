@@ -1,0 +1,47 @@
+#Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val    # 节点值
+        self.next = next  # 指向下一个节点的指针
+
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        """两两交换链表中的相邻节点
+        
+        Args:
+            head: 链表的头节点
+            
+        Returns:
+            交换后的链表的头节点
+        """
+        # 处理边界情况：如果链表为空或只有一个节点，直接返回
+        if not head or not head.next:
+            return head
+        
+        # 由于要交换第一组节点，新的头节点将是原始链表的第二个节点
+        result = head.next
+        
+        # 初始化四个指针，用于完成节点交换
+        pre = None      # 指向待交换的两个节点的前一个节点
+        p1 = head       # 指向待交换的第一个节点
+        p2 = head.next  # 指向待交换的第二个节点
+        nxt = p2.next   # 指向下一组待交换节点的第一个节点
+        
+        while True:
+            # 如果不是第一组节点，需要将前一个节点与当前组的第二个节点相连
+            if pre:
+                pre.next = p2
+            # 完成一组节点的交换
+            p1.next = nxt      # 第一个节点指向下一组的第一个节点
+            p2.next = p1       # 第二个节点指向第一个节点
+ 
+            # 如果没有更多节点需要交换，退出循环
+            if not nxt or not nxt.next:
+                break
+            
+            # 更新四个指针，准备交换下一组节点
+            pre = p1            # 更新前驱节点
+            p1 = nxt           # 更新第一个待交换节点
+            p2 = nxt.next      # 更新第二个待交换节点
+            nxt = p2.next      # 更新下一组的第一个节点
+        return result

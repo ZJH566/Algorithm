@@ -1,0 +1,51 @@
+#邻接表maze
+def dfs(node, visited=None):  # 1. 定义DFS函数，node=当前走到哪了，visited=去过哪些点
+    if visited is None:       # 2. 第一次调用时，visited 是空的，要初始化
+        visited = set()       # 3. 用集合存：去过哪些节点（自动去重）
+    
+    visited.add(node)         # 4. 标记当前节点：我来过了！
+    print(f"访问节点: {node}") # 5. 输出一下，表示正在访问
+    
+    # 6. 遍历当前节点的所有邻居（相邻的点）
+    for neighbor in graph[node]:
+        if neighbor not in visited:  # 7. 如果邻居没去过
+            dfs(neighbor, visited)   # 8. 递归！去邻居那里继续DFS
+
+
+#迷宫矩阵maze
+def solve_maze(maze, start, end):
+
+    # 1. 判断坐标 (x,y) 能不能走
+    def is_valid(x, y):
+        # 条件：
+        # ① 不越界 ② 是通路（0）
+        return 0 <= x < len(maze) and 0 <= y < len(maze[0]) and maze[x][y] == 0
+
+    # 2. 核心 DFS：当前走到 (x,y)，path 记录走过的路径
+    def dfs(x, y, path):
+        # 出口：如果走到终点，返回路径
+        if (x, y) == end:
+            return path
+
+        # 四个方向：上、右、下、左
+        directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+
+        # 挨个方向试
+        for dx, dy in directions:
+            new_x = x + dx   # 新坐标 x
+            new_y = y + dy   # 新坐标 y
+
+            # 如果新坐标合法 + 没走过
+            if is_valid(new_x, new_y) and (new_x, new_y) not in path:
+                # 递归走过去！路径追加新坐标
+                result = dfs(new_x, new_y, path + [(new_x, new_y)])
+
+                # 如果这条路能走到终点，直接返回答案
+                if result:
+                    return result
+
+        # 四个方向都走不通 → 这条路是死路，返回 None
+        return None
+
+    # 3. 启动 DFS，从起点开始，路径初始就是起点,eg:dfs(0,0,[0,0])
+    return dfs(start[0], start[1], [start])

@@ -1,0 +1,14 @@
+#
+# 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+#
+# 
+# @param nums1 int整型一维数组 
+# @param nums2 int整型一维数组 
+# @return int整型一维数组
+#
+class Solution:
+    def intersection(self , nums1: list[int], nums2: list[int]) -> list[int]:
+        # write code here
+        s1 = set(nums1)
+        s2 = set(nums2)
+        return sorted(list(s1 & s2))
