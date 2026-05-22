@@ -1,0 +1,10 @@
+n, m = map(int, input().split())
+a = []
+
+for _ in range(n):
+    s = input().strip()  # 读一行
+    a.append(s)          # 存进列表
+
+# 行倒置 + 每行倒置（180度翻转）
+for line in reversed(a):
+    print(line[::-1])

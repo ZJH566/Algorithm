@@ -1,0 +1,16 @@
+n, m = map(int, input().split())
+#法一：前几个取1
+# for _ in range(n-1):
+#     print(1,end='')
+# print(m-n+1)
+#法二
+arr = list(range(1,n+1))
+sum_arr = sum(arr)
+if sum_arr <= m:
+    arr[-1] += m-sum_arr
+    print(' '.join(map(str, arr)))#str(arr)输出[1, 2, 0]
+    # 或者print(' '.join([str(x) for x in arr]))
+else:
+    for _ in range(n-1):
+        print(1,end=' ')
+    print(m-n+1)

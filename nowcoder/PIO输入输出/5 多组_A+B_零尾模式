@@ -1,0 +1,7 @@
+import sys
+
+for line in sys.stdin:
+    a = line.split()
+    if int(a[0]) == 0 and int(a[1]) == 0:
+        break
+    print(int(a[0]) + int(a[1]))
