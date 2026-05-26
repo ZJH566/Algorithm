@@ -1,3 +1,4 @@
+#多组测试,t表示测试数据的组数
 t = int(input())
 for _ in range(t):
     a, b = map(int, input().split())

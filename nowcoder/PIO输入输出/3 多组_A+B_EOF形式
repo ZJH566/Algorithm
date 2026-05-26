@@ -1,3 +1,4 @@
+#End of file,文件结束/输入结束标志
 import sys
 
 for line in sys.stdin:

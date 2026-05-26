@@ -1,0 +1,7 @@
+#递归，数组，滚动变量
+#滚动变量
+n = int(input())
+a, b = 1, 1
+for _ in range(n-2):
+    a, b = a+b, a#python同步，c用temp
+print(a)

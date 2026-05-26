@@ -1,0 +1,13 @@
+#法一
+n = int(input())
+if n < 0:
+    n = -n#abs
+sumn = 0
+while n > 0:
+    ge = n % 10
+    sumn += ge
+    n = n//10
+print(sumn)
+#法二：用str
+n = str(abs(int(input())))
+print(sum(int(i) for i in n))
