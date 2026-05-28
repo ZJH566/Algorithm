@@ -1,0 +1,8 @@
+#import statistics
+t = int(input())
+for _ in range(t):
+    n = int(input())
+    a = list(map(int, input().split()))
+    avg = sum(a)/n
+    variance = sum((x - avg)**2 for x in a)/n
+    print(max(a)-min(a), f'{variance:.3f}')

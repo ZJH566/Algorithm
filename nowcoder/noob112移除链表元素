@@ -13,7 +13,7 @@ class ListNode:
 class Solution:
     def removeElements(self , head: ListNode, val: int) -> ListNode:
         # write code here
-        if not head:#头部多个用while head and head.val == val:head = head.next
+        if not head:#头部有多个 用while head and head.val == val:  head = head.next
             return None
         if head.val == val:
             return head.next

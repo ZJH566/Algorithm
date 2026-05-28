@@ -1,0 +1,4 @@
+a = list(input().split())
+a.pop()
+a.reverse()
+print(' '.join(a))#或者a[::-1]
